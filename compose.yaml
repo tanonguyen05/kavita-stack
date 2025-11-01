@@ -1,0 +1,31 @@
+services:
+
+############################
+# KAVITA
+############################
+  kavita:
+    image: lscr.io/linuxserver/kavita:latest
+    container_name: kavita
+    environment:
+      - PUID=1000
+      - PGID=1000
+      - TZ=America/New_York
+    volumes:
+      - ./config:/config
+      - /data/books:/data/books
+      - /docker/suwayomi/manga:/data/manga
+    ports:
+      - 5000:5000
+    restart: unless-stopped
+
+############################
+# CLOUDFLARED TUNNEL
+############################
+
+ kavita-tunnel:
+    image: cloudflare/cloudflared:latest
+    container_name: kavita-tunnel
+    environment:
+      - TZ=America/New_York
+    command: tunnel --no-autoupdate run --token eyJhIjoiODA3NzcxNjBhOTEwMDFhNWVkMGZkMDQyMTA3NWU3YTQiLCJ0IjoiY2EzOWIzMzAtNjU1YS00N2U0LWE0OGItZDI4OGQ2OTM2ZWRhIiwicyI6Ik5HVmxOR0l6T0RRdE1XSXlZeTAwTURnM0xUbGlPR0V0TUdaa01tWTFNREZpT0RndyJ9
+    restart: unless-stopped
