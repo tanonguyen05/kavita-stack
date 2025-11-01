@@ -19,10 +19,10 @@ services:
     restart: unless-stopped
 
 ############################
-# CLOUDFLARED TUNNEL
+# CLOUDFLARED
 ############################
 
- kavita-tunnel:
+  kavita-tunnel:
     image: cloudflare/cloudflared:latest
     container_name: kavita-tunnel
     environment:
